@@ -1,3 +1,3 @@
 # Qamposer website
 
-qamposer.org
+https://qamposer.org
