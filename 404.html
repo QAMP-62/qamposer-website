@@ -5,8 +5,13 @@
   <title>Qamposer</title>
   <script>
     // SPA redirect for GitHub Pages
-    const path = window.location.pathname + window.location.search;
-    window.location.replace('/?p=' + encodeURIComponent(path));
+    // Detect base path from current location
+    const pathSegments = window.location.pathname.split('/');
+    const repoName = pathSegments[1]; // e.g., 'qamposer-website'
+    const basePath = repoName && !repoName.includes('.') ? '/' + repoName : '';
+    const relativePath = window.location.pathname.replace(basePath, '') || '/';
+    const search = window.location.search;
+    window.location.replace(basePath + '/?p=' + encodeURIComponent(relativePath + search));
   </script>
 </head>
 <body></body>
