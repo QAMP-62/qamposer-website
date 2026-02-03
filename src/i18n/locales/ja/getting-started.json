@@ -1,0 +1,31 @@
+{
+  "title": "はじめる",
+  "installation": {
+    "title": "インストール",
+    "description": "npmからQamposer Reactライブラリをインストール："
+  },
+  "quickStart": {
+    "title": "クイックスタート (QamposerMicro)",
+    "description": "最も簡単な始め方です。QamposerMicroはチュートリアルや組み込みウィジェットに最適な軽量コンポーネントです。"
+  },
+  "fullVersion": {
+    "title": "フルバージョン (Qamposer)",
+    "description": "可視化機能（Q-sphere、ヒストグラム）を含むフルIDE体験には、Plotlyも一緒にインストールしてください：",
+    "usage": "次にフルQamposerコンポーネントを使用します："
+  },
+  "backend": {
+    "title": "バックエンドセットアップ",
+    "description": "量子シミュレーションを実行するには、Qiskitを実行するqamposer-backendサーバーが必要です。",
+    "setup": "バックエンドをクローンして実行：",
+    "editorOnly": {
+      "title": "エディタのみモード",
+      "description": "シミュレーションなしで回路エディタのみが必要な場合は、noopAdapterを使用してください："
+    }
+  },
+  "nextSteps": {
+    "title": "次のステップ",
+    "tryDemo": "インタラクティブデモを試す",
+    "viewExamples": "サンプルプロジェクトを見る",
+    "apiDocs": "APIドキュメントを読む"
+  }
+}

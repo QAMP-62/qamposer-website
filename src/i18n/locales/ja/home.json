@@ -1,0 +1,41 @@
+{
+  "hero": {
+    "title": "Qamposer",
+    "subtitle": "アプリケーションに統合可能なモジュラー量子コンポーザー",
+    "tryDemo": "デモを試す",
+    "getStarted": "はじめる"
+  },
+  "features": {
+    "title": "特徴",
+    "items": {
+      "openSource": {
+        "title": "オープンソース",
+        "description": "Apache 2.0ライセンスで完全にオープンソース"
+      },
+      "embeddable": {
+        "title": "組み込み可能・カスタマイズ可能",
+        "description": "外部アプリケーションへの組み込みとカスタマイズが可能"
+      },
+      "noisySimulator": {
+        "title": "ノイズシミュレータ対応",
+        "description": "ノイズシミュレータでの実行をサポート"
+      },
+      "deployable": {
+        "title": "どこでもデプロイ可能",
+        "description": "あらゆる環境にデプロイ可能でどこでも動作"
+      }
+    }
+  },
+  "useCases": {
+    "title": "ユースケース",
+    "education": {
+      "title": "教育プラットフォーム",
+      "description": "ステップバイステップのガイダンス付きインタラクティブな量子コンピューティングチュートリアル"
+    },
+    "gaming": {
+      "title": "ゲーム",
+      "description": "量子回路をゲームコントローラーとして使用"
+    },
+    "viewMore": "他の例を見る"
+  }
+}

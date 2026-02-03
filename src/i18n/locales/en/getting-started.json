@@ -1,0 +1,31 @@
+{
+  "title": "Getting Started",
+  "installation": {
+    "title": "Installation",
+    "description": "Install the Qamposer React library from npm:"
+  },
+  "quickStart": {
+    "title": "Quick Start (QamposerMicro)",
+    "description": "The simplest way to get started. QamposerMicro is a lightweight component perfect for tutorials and embedded widgets."
+  },
+  "fullVersion": {
+    "title": "Full Version (Qamposer)",
+    "description": "For the full IDE experience with visualization (Q-sphere, histograms), install Plotly as well:",
+    "usage": "Then use the full Qamposer component:"
+  },
+  "backend": {
+    "title": "Backend Setup",
+    "description": "To run quantum simulations, you need the qamposer-backend server running Qiskit.",
+    "setup": "Clone and run the backend:",
+    "editorOnly": {
+      "title": "Editor-Only Mode",
+      "description": "If you only need the circuit editor without simulation, use the noopAdapter:"
+    }
+  },
+  "nextSteps": {
+    "title": "Next Steps",
+    "tryDemo": "Try the interactive demo",
+    "viewExamples": "View example projects",
+    "apiDocs": "Read the API documentation"
+  }
+}

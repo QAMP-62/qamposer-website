@@ -1,0 +1,16 @@
+{
+  "nav": {
+    "home": "ホーム",
+    "gettingStarted": "はじめる",
+    "demo": "デモ"
+  },
+  "footer": {
+    "license": "Apache 2.0ライセンス",
+    "github": "GitHub",
+    "npm": "npm"
+  },
+  "language": {
+    "en": "English",
+    "ja": "日本語"
+  }
+}

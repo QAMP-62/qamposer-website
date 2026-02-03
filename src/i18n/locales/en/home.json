@@ -1,0 +1,41 @@
+{
+  "hero": {
+    "title": "Qamposer",
+    "subtitle": "Modular Quantum Composer that can be integrated into your applications",
+    "tryDemo": "Try Demo",
+    "getStarted": "Get Started"
+  },
+  "features": {
+    "title": "Features",
+    "items": {
+      "openSource": {
+        "title": "Open Source",
+        "description": "Fully open source under Apache 2.0 license"
+      },
+      "embeddable": {
+        "title": "Embeddable & Customizable",
+        "description": "Embeddable and customizable for external applications"
+      },
+      "noisySimulator": {
+        "title": "Noisy Simulator Support",
+        "description": "Supports execution on noisy simulators"
+      },
+      "deployable": {
+        "title": "Deploy Anywhere",
+        "description": "Deployable in any environment and runs anywhere"
+      }
+    }
+  },
+  "useCases": {
+    "title": "Use Cases",
+    "education": {
+      "title": "Education Platform",
+      "description": "Interactive quantum computing tutorials with step-by-step guidance"
+    },
+    "gaming": {
+      "title": "Gaming",
+      "description": "Use quantum circuits as game controllers"
+    },
+    "viewMore": "View more examples"
+  }
+}

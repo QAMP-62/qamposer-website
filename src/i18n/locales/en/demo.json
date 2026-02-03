@@ -1,0 +1,21 @@
+{
+  "title": "Interactive Demo",
+  "description": "Try Qamposer in your browser. Drag gates onto the circuit and run simulations.",
+  "loading": {
+    "title": "Waking up the server...",
+    "description": "The demo server may take 30-60 seconds to start on first load."
+  },
+  "error": {
+    "title": "Connection Error",
+    "description": "Could not connect to the simulation server. Please try again later.",
+    "retry": "Retry"
+  },
+  "tips": {
+    "title": "Tips",
+    "items": [
+      "Drag gates from the library onto qubits",
+      "Click Run to simulate your circuit",
+      "Export your circuit as OpenQASM code"
+    ]
+  }
+}
