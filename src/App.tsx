@@ -37,10 +37,12 @@ function AppRoutes() {
 
 function ThemedApp() {
   const { theme } = useTheme();
+  // Use Vite's BASE_URL for router basename
+  const basename = import.meta.env.BASE_URL.replace(/\/$/, '');
 
   return (
     <Theme theme={getCarbonTheme(theme)}>
-      <BrowserRouter>
+      <BrowserRouter basename={basename}>
         <AppRoutes />
       </BrowserRouter>
     </Theme>
