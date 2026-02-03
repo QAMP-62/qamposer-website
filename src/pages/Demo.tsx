@@ -4,8 +4,9 @@ import { Qamposer } from "@qamposer/react/visualization";
 import { qiskitAdapter } from "@qamposer/react";
 import { useTranslation } from "../i18n";
 
-// Backend URL - will be updated when deployed to Render.com
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8080";
+// Backend URL - Render.com deployment
+const BACKEND_URL =
+  import.meta.env.VITE_BACKEND_URL || "https://qamposer-backend.onrender.com";
 
 type ConnectionStatus = "checking" | "connected" | "error";
 
