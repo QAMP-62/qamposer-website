@@ -18,8 +18,8 @@ importers:
         specifier: ^1.99.0
         version: 1.99.0(sass@1.97.3)
       '@qamposer/react':
-        specifier: ^0.1.0
-        version: 0.1.0(plotly.js-basic-dist-min@3.3.1)(react-dom@19.2.4(react@19.2.4))(react-plotly.js@2.6.0(plotly.js@3.3.1(mapbox-gl@1.13.3))(react@19.2.4))(react@19.2.4)
+        specifier: ^0.1.2
+        version: 0.1.2(plotly.js-basic-dist-min@3.3.1)(react-dom@19.2.4(react@19.2.4))(react-plotly.js@2.6.0(plotly.js@3.3.1(mapbox-gl@1.13.3))(react@19.2.4))(react@19.2.4)
       plotly.js-basic-dist-min:
         specifier: ^3.3.1
         version: 3.3.1
@@ -642,8 +642,8 @@ packages:
   '@plotly/regl@2.1.2':
     resolution: {integrity: sha512-Mdk+vUACbQvjd0m/1JJjOOafmkp/EpmHjISsopEz5Av44CBq7rPC05HHNbYGKVyNUF2zmEoBS/TT0pd0SPFFyw==}
 
-  '@qamposer/react@0.1.0':
-    resolution: {integrity: sha512-GwynShnhqLvCsomx3441Ge378/FA1/E3FKYBMJJLft0OX4o4xxCctmwnaOQHDrFxsGcz6zHgN9eiZlHlWySxag==}
+  '@qamposer/react@0.1.2':
+    resolution: {integrity: sha512-8374qZqT3uROo66hyeB19oMdAV71d+qyagk9+nUuoLbOcFSMul87ZZUqEyJa0OWHCQSeO/ZOObS8hRcEUXlnhw==}
     peerDependencies:
       plotly.js-basic-dist-min: ^2.35.0 || ^3.0.0
       react: ^18.0.0 || ^19.0.0
@@ -2874,7 +2874,7 @@ snapshots:
 
   '@plotly/regl@2.1.2': {}
 
-  '@qamposer/react@0.1.0(plotly.js-basic-dist-min@3.3.1)(react-dom@19.2.4(react@19.2.4))(react-plotly.js@2.6.0(plotly.js@3.3.1(mapbox-gl@1.13.3))(react@19.2.4))(react@19.2.4)':
+  '@qamposer/react@0.1.2(plotly.js-basic-dist-min@3.3.1)(react-dom@19.2.4(react@19.2.4))(react-plotly.js@2.6.0(plotly.js@3.3.1(mapbox-gl@1.13.3))(react@19.2.4))(react@19.2.4)':
     dependencies:
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)

@@ -13,7 +13,7 @@
     "@carbon/icons-react": "^11.74.0",
     "@carbon/react": "^1.100.0",
     "@carbon/styles": "^1.99.0",
-    "@qamposer/react": "^0.1.0",
+    "@qamposer/react": "^0.1.2",
     "plotly.js-basic-dist-min": "^3.3.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",

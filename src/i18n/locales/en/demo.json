@@ -3,7 +3,7 @@
   "description": "Try Qamposer in your browser. Drag gates onto the circuit and run simulations.",
   "loading": {
     "title": "Waking up the server...",
-    "description": "The demo server may take 30-60 seconds to start on first load."
+    "description": "The demo server may take 30-60 seconds to start on first load due to cold start. It runs much faster once resources are allocated or when running locally."
   },
   "error": {
     "title": "Connection Error",
