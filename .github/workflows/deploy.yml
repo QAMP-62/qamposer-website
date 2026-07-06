@@ -3,6 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -11,6 +12,12 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
+
+      # Quantum Runner is built from the public usecases repo and served at /quantum-runner/
+      - uses: actions/checkout@v4
+        with:
+          repository: QAMP-62/qamposer-usecases
+          path: qamposer-usecases
 
       - uses: pnpm/action-setup@v4
         with:
@@ -23,6 +30,15 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
+
+      - name: Build Quantum Runner
+        working-directory: qamposer-usecases/quantum-runner
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm build
+
+      - name: Add Quantum Runner to site
+        run: cp -r qamposer-usecases/quantum-runner/dist dist/quantum-runner
 
       - uses: peaceiris/actions-gh-pages@v4
         with:
