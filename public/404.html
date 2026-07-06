@@ -14,7 +14,17 @@
       basePath = '/' + pathSegments[1];
       relativePath = window.location.pathname.slice(basePath.length) || '/';
     }
-    window.location.replace(basePath + '/?p=' + encodeURIComponent(relativePath));
+    // Static sub-apps served as separate builds — redirect directly instead of into the SPA
+    var staticSubApps = ['/quantum-runner'];
+    var isStaticSubApp = staticSubApps.some(function(prefix) {
+      return relativePath === prefix || relativePath.startsWith(prefix + '/');
+    });
+    if (isStaticSubApp) {
+      var target = relativePath.endsWith('/') ? relativePath : relativePath + '/';
+      window.location.replace(basePath + target);
+    } else {
+      window.location.replace(basePath + '/?p=' + encodeURIComponent(relativePath));
+    }
   </script>
 </head>
 <body></body>
