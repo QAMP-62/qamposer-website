@@ -40,6 +40,22 @@ jobs:
       - name: Add Quantum Runner to site
         run: cp -r qamposer-usecases/quantum-runner/dist dist/quantum-runner
 
+      # Bloch Golf is built from the public nyainman-labs repo and served at /bloch-golf/
+      - uses: actions/checkout@v4
+        with:
+          repository: nyainman-labs/bloch-golf
+          path: bloch-golf
+
+      - name: Build Bloch Golf
+        working-directory: bloch-golf
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm exec tsc -b
+          pnpm exec vite build --base=./
+
+      - name: Add Bloch Golf to site
+        run: cp -r bloch-golf/dist dist/bloch-golf
+
       - uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
