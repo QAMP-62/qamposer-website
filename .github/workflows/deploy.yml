@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+
     steps:
       - uses: actions/checkout@v4
 
@@ -19,17 +20,34 @@ jobs:
           repository: QAMP-62/qamposer-usecases
           path: qamposer-usecases
 
+      # Bloch Golf is built from the public nyainman-labs repo and served at /bloch-golf/
+      - uses: actions/checkout@v4
+        with:
+          repository: nyainman-labs/bloch-golf
+          path: bloch-golf
+
       - uses: pnpm/action-setup@v4
         with:
-          version: 9
+          version: 10.26.0
+          run_install: false
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
           cache: pnpm
 
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm build
+      - name: Debug pnpm
+        run: |
+          pwd
+          node -v
+          pnpm -v
+          cat pnpm-workspace.yaml
+
+      - name: Install website dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build website
+        run: pnpm build
 
       - name: Build Quantum Runner
         working-directory: qamposer-usecases/quantum-runner
@@ -39,12 +57,6 @@ jobs:
 
       - name: Add Quantum Runner to site
         run: cp -r qamposer-usecases/quantum-runner/dist dist/quantum-runner
-
-      # Bloch Golf is built from the public nyainman-labs repo and served at /bloch-golf/
-      - uses: actions/checkout@v4
-        with:
-          repository: nyainman-labs/bloch-golf
-          path: bloch-golf
 
       - name: Build Bloch Golf
         working-directory: bloch-golf
