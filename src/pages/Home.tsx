@@ -97,42 +97,49 @@ export function Home() {
           <Column lg={16} md={8} sm={4}>
             <h2 className="section-title">{t("useCases.title")}</h2>
           </Column>
-          {useCases.map(({ key, image, href }) => {
-            const title = t(`useCases.${key}.title`);
-            const content = (
-              <>
-                <h3 className="use-case-tile__title">
-                  {title}
-                  {href && <ArrowRight size={16} aria-hidden="true" />}
-                </h3>
-                <p className="use-case-tile__description">
-                  {t(`useCases.${key}.description`)}
-                </p>
-                <img
-                  src={image}
-                  alt={title}
-                  className="use-case-tile__image"
-                  loading="lazy"
-                />
-              </>
-            );
+          <Column lg={16} md={8} sm={4}>
+            <div className="use-case-grid">
+              {useCases.map(({ key, image, href }) => {
+                const title = t(`useCases.${key}.title`);
+                const content = (
+                  <>
+                    <div className="use-case-card__media">
+                      <img
+                        src={image}
+                        alt={title}
+                        className="use-case-card__image"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="use-case-card__body">
+                      <h3 className="use-case-card__title">
+                        {title}
+                        {href && <ArrowRight size={16} aria-hidden="true" />}
+                      </h3>
+                      <p className="use-case-card__description">
+                        {t(`useCases.${key}.description`)}
+                      </p>
+                    </div>
+                  </>
+                );
 
-            return (
-              <Column key={key} lg={8} md={4} sm={4}>
-                {href ? (
+                return href ? (
                   <ClickableTile
-                    className="use-case-tile"
+                    key={key}
+                    className="use-case-card"
                     href={href}
                     aria-label={title}
                   >
                     {content}
                   </ClickableTile>
                 ) : (
-                  <Tile className="use-case-tile">{content}</Tile>
-                )}
-              </Column>
-            );
-          })}
+                  <Tile key={key} className="use-case-card">
+                    {content}
+                  </Tile>
+                );
+              })}
+            </div>
+          </Column>
           <Column lg={16} md={8} sm={4}>
             <Button
               kind="tertiary"

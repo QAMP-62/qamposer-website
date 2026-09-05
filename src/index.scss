@@ -125,48 +125,103 @@ body {
   color: var(--cds-text-secondary);
 }
 
-// Use Case Tiles
-.use-case-tile {
-  display: block;
-  height: 100%;
-  padding: 1.5rem;
-  margin-bottom: 1rem;
+// Use Case Cards
+.use-case-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.use-case-card {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow: hidden;
   text-decoration: none;
+  border: 1px solid var(--cds-border-subtle);
 }
 
-// Tiles that link out to a hosted app (ClickableTile renders an <a>)
-a.use-case-tile {
-  color: inherit;
-
-  .use-case-tile__title svg {
-    fill: var(--cds-link-primary);
-    transition: transform 0.2s ease;
-  }
-
-  &:hover .use-case-tile__title svg,
-  &:focus .use-case-tile__title svg {
-    transform: translateX(0.25rem);
-  }
+.use-case-card__media {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background-color: var(--cds-layer-accent-01);
+  border-bottom: 1px solid var(--cds-border-subtle);
 }
 
-.use-case-tile__title {
+.use-case-card__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.use-case-card__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 1.25rem 1.5rem 1.5rem;
+}
+
+.use-case-card__title {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
 
-.use-case-tile__description {
+.use-case-card__description {
   font-size: 0.875rem;
+  line-height: 1.4;
   color: var(--cds-text-secondary);
-  margin-bottom: 1rem;
 }
 
-.use-case-tile__image {
-  width: 100%;
-  border-radius: 4px;
+// Cards that link out to a hosted app (ClickableTile renders an <a>)
+a.use-case-card {
+  color: inherit;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  .use-case-card__title svg {
+    fill: var(--cds-link-primary);
+    transition: transform 0.2s ease;
+  }
+
+  &:hover,
+  &:focus {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+
+  &:hover .use-case-card__image,
+  &:focus .use-case-card__image {
+    transform: scale(1.04);
+  }
+
+  &:hover .use-case-card__title svg,
+  &:focus .use-case-card__title svg {
+    transform: translateX(0.25rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .use-case-card__image,
+  a.use-case-card,
+  a.use-case-card .use-case-card__title svg {
+    transition: none;
+  }
+
+  a.use-case-card:hover,
+  a.use-case-card:focus {
+    transform: none;
+  }
+
+  a.use-case-card:hover .use-case-card__image,
+  a.use-case-card:focus .use-case-card__image {
+    transform: none;
+  }
 }
 
 // Getting Started Page
