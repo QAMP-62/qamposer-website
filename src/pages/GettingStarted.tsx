@@ -1,20 +1,32 @@
 import { useNavigate } from "react-router-dom";
-import { Grid, Column, CodeSnippet, Button, Tile } from "@carbon/react";
+import {
+  Grid,
+  Column,
+  CodeSnippet,
+  Button,
+  Tile,
+  Table,
+  TableHead,
+  TableRow,
+  TableHeader,
+  TableBody,
+  TableCell,
+} from "@carbon/react";
 import { ArrowRight } from "@carbon/icons-react";
 import { useTranslation } from "../i18n";
 
 export function GettingStarted() {
-  const { t } = useTranslation("getting-started");
+  const { t, tArray } = useTranslation("getting-started");
   const navigate = useNavigate();
 
   const installCode = "npm install @qamposer/react";
 
-  const quickStartCode = `import { QamposerMicro, qiskitAdapter } from '@qamposer/react';
+  const quickStartCode = `import { QamposerMicro, localAdapter } from '@qamposer/react';
 
 function App() {
   return (
     <QamposerMicro
-      adapter={qiskitAdapter('http://localhost:8080')}
+      adapter={localAdapter()}
       onSimulationComplete={(event) => {
         console.log('Result:', event.result);
         console.log('QASM:', event.qasm);
@@ -27,17 +39,27 @@ function App() {
     "npm install plotly.js-basic-dist-min react-plotly.js";
 
   const fullVersionCode = `import { Qamposer } from '@qamposer/react/visualization';
-import { qiskitAdapter } from '@qamposer/react';
+import { localAdapter } from '@qamposer/react';
 
 function App() {
   return (
     <Qamposer
-      adapter={qiskitAdapter('http://localhost:8080')}
+      adapter={localAdapter()}
       defaultTheme="dark"
       showThemeToggle
     />
   );
 }`;
+
+  const localAdapterOptionsCode = `import { QamposerMicro, localAdapter } from '@qamposer/react';
+
+<QamposerMicro
+  adapter={localAdapter({
+    name: 'Browser Simulator', // display name
+    maxQubits: 12,             // reject wider circuits
+    qsphere: true,             // emit Q-sphere points for 5 qubits or fewer
+  })}
+/>`;
 
   const backendSetupCode = `# Clone qamposer-backend
 git clone https://github.com/QAMP-62/qamposer-backend.git
@@ -49,10 +71,30 @@ poetry install
 # Run the server
 poetry run uvicorn backend.main:app --host 0.0.0.0 --port 8080 --reload`;
 
+  const combinedAdapterCode = `import { Qamposer } from '@qamposer/react/visualization';
+import { qiskitAdapter, localAdapter } from '@qamposer/react';
+
+function App() {
+  return (
+    <Qamposer
+      // noisy fake devices, via "Set up and run"
+      adapter={qiskitAdapter('http://localhost:8080')}
+      // instant ideal results on every edit
+      realtimeAdapter={localAdapter()}
+    />
+  );
+}`;
+
   const noopAdapterCode = `import { QamposerMicro, noopAdapter } from '@qamposer/react';
 
-// No backend required - simulation is disabled
+// No simulation - circuit editor only
 <QamposerMicro adapter={noopAdapter} />`;
+
+  const adapters = [
+    { key: "local", name: "localAdapter()" },
+    { key: "qiskit", name: "qiskitAdapter(url)" },
+    { key: "noop", name: "noopAdapter" },
+  ];
 
   return (
     <div className="getting-started">
@@ -97,6 +139,26 @@ poetry run uvicorn backend.main:app --host 0.0.0.0 --port 8080 --reload`;
             </CodeSnippet>
           </section>
 
+          {/* Real-Time Local Simulation */}
+          <section className="section">
+            <h2 className="section-title">{t("localSimulation.title")}</h2>
+            <p className="section-description">
+              {t("localSimulation.description")}
+            </p>
+            <p className="section-description">{t("localSimulation.options")}</p>
+            <CodeSnippet type="multi" feedback="Copied!">
+              {localAdapterOptionsCode}
+            </CodeSnippet>
+            <h3 className="subsection-title">
+              {t("localSimulation.notesTitle")}
+            </h3>
+            <ul className="doc-list">
+              {tArray("localSimulation.notes").map((note, index) => (
+                <li key={index}>{note}</li>
+              ))}
+            </ul>
+          </section>
+
           {/* Backend Setup */}
           <section className="section">
             <h2 className="section-title">{t("backend.title")}</h2>
@@ -105,10 +167,44 @@ poetry run uvicorn backend.main:app --host 0.0.0.0 --port 8080 --reload`;
             <CodeSnippet type="multi" feedback="Copied!">
               {backendSetupCode}
             </CodeSnippet>
+            <p className="section-description" style={{ marginTop: "1.5rem" }}>
+              {t("backend.combined")}
+            </p>
+            <CodeSnippet type="multi" feedback="Copied!">
+              {combinedAdapterCode}
+            </CodeSnippet>
+          </section>
+
+          {/* Adapters */}
+          <section className="section">
+            <h2 className="section-title">{t("adapters.title")}</h2>
+            <p className="section-description">{t("adapters.description")}</p>
+            <div className="table-container">
+              <Table size="lg" useZebraStyles={false}>
+                <TableHead>
+                  <TableRow>
+                    <TableHeader>{t("adapters.columns.adapter")}</TableHeader>
+                    <TableHeader>{t("adapters.columns.runsOn")}</TableHeader>
+                    <TableHeader>{t("adapters.columns.bestFor")}</TableHeader>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {adapters.map(({ key, name }) => (
+                    <TableRow key={key}>
+                      <TableCell>
+                        <code>{name}</code>
+                      </TableCell>
+                      <TableCell>{t(`adapters.${key}.runsOn`)}</TableCell>
+                      <TableCell>{t(`adapters.${key}.bestFor`)}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
 
             <Tile className="info-tile">
-              <h4>{t("backend.editorOnly.title")}</h4>
-              <p>{t("backend.editorOnly.description")}</p>
+              <h4>{t("adapters.editorOnly.title")}</h4>
+              <p>{t("adapters.editorOnly.description")}</p>
               <CodeSnippet type="multi" feedback="Copied!">
                 {noopAdapterCode}
               </CodeSnippet>

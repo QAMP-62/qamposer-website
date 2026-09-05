@@ -6,20 +6,54 @@
   },
   "quickStart": {
     "title": "Quick Start (QamposerMicro)",
-    "description": "The simplest way to get started. QamposerMicro is a lightweight component perfect for tutorials and embedded widgets."
+    "description": "The simplest way to get started. QamposerMicro is a lightweight component perfect for tutorials and embedded widgets. Pass localAdapter() and ideal simulation runs right in the browser — no server to set up."
   },
   "fullVersion": {
     "title": "Full Version (Qamposer)",
     "description": "For the full IDE experience with visualization (Q-sphere, histograms), install Plotly as well:",
-    "usage": "Then use the full Qamposer component:"
+    "usage": "Then use the full Qamposer component. The visualization panels are driven by simulation results, so localAdapter is enough to see them fill in as you edit:"
+  },
+  "localSimulation": {
+    "title": "Real-Time Local Simulation (localAdapter)",
+    "description": "Since v0.2.0, localAdapter runs ideal (noiseless) state-vector simulation entirely in the browser. Every circuit edit is simulated instantly, and it returns counts, seeded sampling, and Q-sphere data in the same format as the backend — with zero extra dependencies.",
+    "options": "Its defaults work as-is, and each one can be overridden:",
+    "notesTitle": "Good to know",
+    "notes": [
+      "Auto-simulation runs on every circuit change with 1024 shots, so results update as you edit.",
+      "Ideal (noiseless) profiles only — noisy fake devices and real hardware still need a backend adapter.",
+      "Circuits wider than maxQubits (default: 12) are rejected.",
+      "Q-sphere points are emitted for circuits of 5 qubits or fewer."
+    ]
   },
   "backend": {
-    "title": "Backend Setup",
-    "description": "To run quantum simulations, you need the qamposer-backend server running Qiskit.",
+    "title": "Backend Setup (Optional)",
+    "description": "A backend is only needed for noisy fake devices and real hardware, which run through \"Set up and run\". Ideal simulation no longer requires a server.",
     "setup": "Clone and run the backend:",
+    "combined": "The two adapters work together: the backend handles noisy fake devices via \"Set up and run\", while localAdapter gives instant ideal feedback on every edit."
+  },
+  "adapters": {
+    "title": "Choosing an Adapter",
+    "description": "Three adapters ship with the library, and they can be mixed through the adapter and realtimeAdapter props:",
+    "columns": {
+      "adapter": "Adapter",
+      "runsOn": "Runs on",
+      "bestFor": "Best for"
+    },
+    "local": {
+      "runsOn": "Browser",
+      "bestFor": "Instant ideal simulation with no server"
+    },
+    "qiskit": {
+      "runsOn": "qamposer-backend",
+      "bestFor": "Noisy fake devices via \"Set up and run\""
+    },
+    "noop": {
+      "runsOn": "Nothing",
+      "bestFor": "Editor-only mode with simulation disabled"
+    },
     "editorOnly": {
       "title": "Editor-Only Mode",
-      "description": "If you only need the circuit editor without simulation, use the noopAdapter:"
+      "description": "If you only need the circuit editor without simulation, use the noopAdapter. It is also the default when no adapter is given:"
     }
   },
   "nextSteps": {

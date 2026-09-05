@@ -5,6 +5,11 @@
     "title": "Waking up the server...",
     "description": "The demo server may take 30-60 seconds to start on first load due to cold start. It runs much faster once resources are allocated or when running locally."
   },
+  "backend": {
+    "checking": "Warming up the simulation server for \"Set up and run\" (may take 30-60s on first load). Ideal simulation already runs instantly in your browser.",
+    "ready": "Simulation server ready — \"Set up and run\" is available.",
+    "error": "The simulation server is unavailable right now. Ideal simulation still runs instantly in your browser; \"Set up and run\" may not work until the server is back."
+  },
   "error": {
     "title": "Connection Error",
     "description": "Could not connect to the simulation server. Please try again later.",

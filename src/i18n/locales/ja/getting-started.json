@@ -6,20 +6,54 @@
   },
   "quickStart": {
     "title": "クイックスタート (QamposerMicro)",
-    "description": "最も簡単な始め方です。QamposerMicroはチュートリアルや組み込みウィジェットに最適な軽量コンポーネントです。"
+    "description": "最も簡単な始め方です。QamposerMicroはチュートリアルや組み込みウィジェットに最適な軽量コンポーネントです。localAdapter() を渡すだけで、理想シミュレーションがブラウザ上で動作します — サーバーの準備は不要です。"
   },
   "fullVersion": {
     "title": "フルバージョン (Qamposer)",
     "description": "可視化機能（Q-sphere、ヒストグラム）を含むフルIDE体験には、Plotlyも一緒にインストールしてください：",
-    "usage": "次にフルQamposerコンポーネントを使用します："
+    "usage": "次にフルQamposerコンポーネントを使用します。可視化パネルはシミュレーション結果から描画されるため、localAdapterだけで編集に合わせて結果が反映されます："
+  },
+  "localSimulation": {
+    "title": "リアルタイムのローカルシミュレーション (localAdapter)",
+    "description": "v0.2.0から、localAdapterが理想（ノイズなし）の状態ベクトルシミュレーションをブラウザ上で完結して実行します。回路を編集するたびに即座にシミュレーションが走り、カウント・シード付きサンプリング・Q-sphereのデータをバックエンドと同じ形式で返します。追加の依存関係は不要です。",
+    "options": "デフォルトのままでも動作し、各項目は個別に上書きできます：",
+    "notesTitle": "知っておきたいこと",
+    "notes": [
+      "自動シミュレーションは回路の変更ごとに1024ショットで実行され、編集に合わせて結果が更新されます。",
+      "対応するのは理想（ノイズなし）プロファイルのみです。ノイズありの疑似デバイスや実機にはバックエンドアダプターが必要です。",
+      "maxQubits（デフォルト: 12）を超える量子ビット数の回路は拒否されます。",
+      "Q-sphereの点は5量子ビット以下の回路で出力されます。"
+    ]
   },
   "backend": {
-    "title": "バックエンドセットアップ",
-    "description": "量子シミュレーションを実行するには、Qiskitを実行するqamposer-backendサーバーが必要です。",
+    "title": "バックエンドセットアップ（任意）",
+    "description": "バックエンドが必要なのは、「Set up and run」から実行するノイズありの疑似デバイスや実機の場合だけです。理想シミュレーションにサーバーは不要になりました。",
     "setup": "バックエンドをクローンして実行：",
+    "combined": "2つのアダプターは併用できます。バックエンドが「Set up and run」でノイズありの疑似デバイスを担当し、localAdapterが編集のたびに理想シミュレーションの結果を即座に返します。"
+  },
+  "adapters": {
+    "title": "アダプターの選び方",
+    "description": "ライブラリには3つのアダプターが同梱されており、adapter と realtimeAdapter のpropsで組み合わせられます：",
+    "columns": {
+      "adapter": "アダプター",
+      "runsOn": "実行場所",
+      "bestFor": "主な用途"
+    },
+    "local": {
+      "runsOn": "ブラウザ",
+      "bestFor": "サーバー不要の即時な理想シミュレーション"
+    },
+    "qiskit": {
+      "runsOn": "qamposer-backend",
+      "bestFor": "「Set up and run」によるノイズありの疑似デバイス"
+    },
+    "noop": {
+      "runsOn": "なし",
+      "bestFor": "シミュレーションを無効にしたエディタのみモード"
+    },
     "editorOnly": {
       "title": "エディタのみモード",
-      "description": "シミュレーションなしで回路エディタのみが必要な場合は、noopAdapterを使用してください："
+      "description": "シミュレーションなしで回路エディタのみが必要な場合は、noopAdapterを使用してください。アダプターを指定しない場合のデフォルトでもあります："
     }
   },
   "nextSteps": {

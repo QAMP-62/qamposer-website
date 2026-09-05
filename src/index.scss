@@ -190,6 +190,27 @@ body {
   margin: 1.5rem 0 0.75rem;
 }
 
+.doc-list {
+  margin: 0 0 1rem 1.25rem;
+  color: var(--cds-text-secondary);
+  list-style: disc;
+
+  li {
+    margin-bottom: 0.5rem;
+  }
+}
+
+// Static comparison tables (e.g. the adapter overview)
+.table-container {
+  overflow-x: auto;
+
+  code {
+    font-family: var(--cds-code-01-font-family, monospace);
+    font-size: 0.875rem;
+    white-space: nowrap;
+  }
+}
+
 .info-tile {
   margin-top: 1.5rem;
   background-color: var(--cds-layer-02);
@@ -228,6 +249,36 @@ body {
 .error-tile {
   text-align: center;
   padding: 3rem;
+}
+
+// Non-blocking backend status banner (only affects "Set up and run")
+.backend-status {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+
+  p {
+    margin: 0;
+  }
+}
+
+.backend-status--ready {
+  border-left: 3px solid var(--cds-support-success);
+  color: var(--cds-text-secondary);
+}
+
+.backend-status--checking {
+  border-left: 3px solid var(--cds-support-info);
+}
+
+.backend-status--error {
+  border-left: 3px solid var(--cds-support-warning);
+  color: var(--cds-text-secondary);
 }
 
 .loading-description {
