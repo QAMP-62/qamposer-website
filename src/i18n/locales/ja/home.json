@@ -32,9 +32,13 @@
       "title": "教育プラットフォーム",
       "description": "ステップバイステップのガイダンス付きインタラクティブな量子コンピューティングチュートリアル"
     },
-    "gaming": {
-      "title": "ゲーム",
+    "quantumRunner": {
+      "title": "Quantum Runner",
       "description": "量子回路をゲームコントローラーとして使用"
+    },
+    "blochGolf": {
+      "title": "Bloch Golf",
+      "description": "量子ゲートでブロッホ球上のボールを転がし、少ないゲート数でターゲットの量子状態を目指す"
     },
     "viewMore": "他の例を見る"
   }

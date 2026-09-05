@@ -32,9 +32,13 @@
       "title": "Education Platform",
       "description": "Interactive quantum computing tutorials with step-by-step guidance"
     },
-    "gaming": {
-      "title": "Gaming",
+    "quantumRunner": {
+      "title": "Quantum Runner",
       "description": "Use quantum circuits as game controllers"
+    },
+    "blochGolf": {
+      "title": "Bloch Golf",
+      "description": "Roll a ball across the Bloch sphere with quantum gates and reach the target state in as few gates as possible"
     },
     "viewMore": "View more examples"
   }

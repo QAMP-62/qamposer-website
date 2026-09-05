@@ -127,12 +127,32 @@ body {
 
 // Use Case Tiles
 .use-case-tile {
+  display: block;
   height: 100%;
   padding: 1.5rem;
   margin-bottom: 1rem;
+  text-decoration: none;
+}
+
+// Tiles that link out to a hosted app (ClickableTile renders an <a>)
+a.use-case-tile {
+  color: inherit;
+
+  .use-case-tile__title svg {
+    fill: var(--cds-link-primary);
+    transition: transform 0.2s ease;
+  }
+
+  &:hover .use-case-tile__title svg,
+  &:focus .use-case-tile__title svg {
+    transform: translateX(0.25rem);
+  }
 }
 
 .use-case-tile__title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   font-size: 1.25rem;
   font-weight: 600;
   margin-bottom: 0.5rem;

@@ -1,7 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { Grid, Column, Button, Tile } from "@carbon/react";
+import { Grid, Column, Button, Tile, ClickableTile } from "@carbon/react";
 import { ArrowRight } from "@carbon/icons-react";
 import { useTranslation } from "../i18n";
+
+const GIF_BASE =
+  "https://raw.githubusercontent.com/QAMP-62/qamposer-usecases/main/docs/gif";
 
 export function Home() {
   const { t } = useTranslation("home");
@@ -12,6 +15,20 @@ export function Home() {
     { key: "embeddable", icon: "🧩" },
     { key: "noisySimulator", icon: "🔊" },
     { key: "deployable", icon: "🚀" },
+  ];
+
+  const useCases = [
+    { key: "education", image: `${GIF_BASE}/education.gif` },
+    {
+      key: "quantumRunner",
+      image: `${GIF_BASE}/gaming.gif`,
+      href: "https://qamposer.org/quantum-runner",
+    },
+    {
+      key: "blochGolf",
+      image: `${GIF_BASE}/bloch-golf.gif`,
+      href: "https://qamposer.org/bloch-golf",
+    },
   ];
 
   return (
@@ -80,36 +97,42 @@ export function Home() {
           <Column lg={16} md={8} sm={4}>
             <h2 className="section-title">{t("useCases.title")}</h2>
           </Column>
-          <Column lg={8} md={4} sm={4}>
-            <Tile className="use-case-tile">
-              <h3 className="use-case-tile__title">
-                {t("useCases.education.title")}
-              </h3>
-              <p className="use-case-tile__description">
-                {t("useCases.education.description")}
-              </p>
-              <img
-                src="https://raw.githubusercontent.com/QAMP-62/qamposer-react/main/docs/gif/education.gif"
-                alt="Education Platform"
-                className="use-case-tile__image"
-              />
-            </Tile>
-          </Column>
-          <Column lg={8} md={4} sm={4}>
-            <Tile className="use-case-tile">
-              <h3 className="use-case-tile__title">
-                {t("useCases.gaming.title")}
-              </h3>
-              <p className="use-case-tile__description">
-                {t("useCases.gaming.description")}
-              </p>
-              <img
-                src="https://raw.githubusercontent.com/QAMP-62/qamposer-react/main/docs/gif/gaming.gif"
-                alt="Gaming"
-                className="use-case-tile__image"
-              />
-            </Tile>
-          </Column>
+          {useCases.map(({ key, image, href }) => {
+            const title = t(`useCases.${key}.title`);
+            const content = (
+              <>
+                <h3 className="use-case-tile__title">
+                  {title}
+                  {href && <ArrowRight size={16} aria-hidden="true" />}
+                </h3>
+                <p className="use-case-tile__description">
+                  {t(`useCases.${key}.description`)}
+                </p>
+                <img
+                  src={image}
+                  alt={title}
+                  className="use-case-tile__image"
+                  loading="lazy"
+                />
+              </>
+            );
+
+            return (
+              <Column key={key} lg={8} md={4} sm={4}>
+                {href ? (
+                  <ClickableTile
+                    className="use-case-tile"
+                    href={href}
+                    aria-label={title}
+                  >
+                    {content}
+                  </ClickableTile>
+                ) : (
+                  <Tile className="use-case-tile">{content}</Tile>
+                )}
+              </Column>
+            );
+          })}
           <Column lg={16} md={8} sm={4}>
             <Button
               kind="tertiary"
