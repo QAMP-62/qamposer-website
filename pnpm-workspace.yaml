@@ -26,4 +26,4 @@ allowBuilds:
   es5-ext: true
   esbuild: true
 minimumReleaseAgeExclude:
-  - '@qamposer/react@0.2.0'
+  - '@qamposer/react@0.2.0 || 0.2.1'
