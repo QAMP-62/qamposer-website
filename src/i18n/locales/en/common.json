@@ -7,7 +7,8 @@
   "footer": {
     "license": "Licensed under Apache 2.0",
     "github": "GitHub",
-    "npm": "npm"
+    "npm": "npm",
+    "family": "Part of the Fun with Quantum family:"
   },
   "language": {
     "en": "English",

@@ -1,6 +1,7 @@
 import { Grid, Column, Link } from '@carbon/react';
 import { LogoGithub } from '@carbon/icons-react';
 import { useTranslation } from '../i18n';
+import { FamilyFooter } from './FamilyFooter';
 
 export function Footer() {
   const { t } = useTranslation();
@@ -29,6 +30,7 @@ export function Footer() {
             </div>
             <p className="footer__license">{t('footer.license')}</p>
           </div>
+          <FamilyFooter />
         </Column>
       </Grid>
     </footer>
