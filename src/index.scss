@@ -414,6 +414,57 @@ a.use-case-card {
   color: var(--cds-text-secondary);
 }
 
+// Fun with Quantum family block (rendered from the shared family manifest)
+.footer__family {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--cds-border-subtle);
+  font-size: 0.875rem;
+  color: var(--cds-text-secondary);
+}
+
+.footer__family-tagline {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.5rem;
+}
+
+.footer__family-lead {
+  color: var(--cds-text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.footer__family-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.6rem 1.5rem;
+
+  a {
+    display: block;
+    color: var(--cds-text-primary);
+    text-decoration: none;
+    line-height: 1.3;
+
+    &:hover span {
+      text-decoration: underline;
+    }
+  }
+
+  span {
+    display: block;
+  }
+
+  small {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--cds-text-secondary);
+  }
+}
+
 // Responsive
 @media (max-width: 672px) {
   .hero__title {
