@@ -90,6 +90,70 @@ function App() {
 // No simulation - circuit editor only
 <QamposerMicro adapter={noopAdapter} />`;
 
+  const realtimeShotsCode = `<QamposerMicro
+  adapter={localAdapter()}
+  config={{ realtimeShots: 4096 }} // shots per auto-simulation (default: 1024)
+/>`;
+
+  const gateApiCode = `const { insertGate, moveGate, removeGate, undo, redo, canUndo, canRedo } = useQamposer();
+
+const id = insertGate({ type: 'H', qubit: 0 }, 0); // insert at column 0, pushing gates right
+moveGate(id, { row: 1, column: 2 }); // for CNOT, row is the top-most row`;
+
+  const providerCode = `import { QamposerProvider, QamposerMicro, useQamposer, localAdapter } from '@qamposer/react';
+
+const adapter = localAdapter();
+
+function Toolbar() {
+  const { result, resultSource, importQasm, simulate, adapterStatus } = useQamposer();
+  return (
+    <>
+      <button
+        disabled={adapterStatus === 'unavailable'}
+        onClick={() => {
+          importQasm(PUZZLE_QASM);
+          simulate(1024); // sees the imported circuit
+        }}
+      >
+        Load & measure
+      </button>
+      {/* resultSource: 'realtime' (auto-simulation) or 'run' (simulate()) */}
+      {result && resultSource === 'run' && <pre>{JSON.stringify(result.counts)}</pre>}
+    </>
+  );
+}
+
+function App() {
+  return (
+    <QamposerProvider adapter={adapter}>
+      <QamposerMicro />
+      <Toolbar />
+    </QamposerProvider>
+  );
+}`;
+
+  const eventsCode = `<QamposerProvider
+  adapter={localAdapter()}
+  onSimulationStart={({ source }) => setLoading(true)}
+  onSimulationComplete={({ result, source }) => source === 'run' && save(result)}
+  onSimulationError={({ error }) => showToast(error.message)}
+  // fires whenever the displayed result changes, including when it is cleared
+  onResultChange={({ result, reason }) => setCounts(result?.counts ?? null)}
+  // one event per edit: what changed and why
+  onCircuitEdit={(event) => {
+    // event.action: 'add' | 'move' | 'remove' | 'update' | 'undo' | 'redo' | ...
+    // event.origin: 'pointer' | 'keyboard' | 'code' | 'api'
+    if (event.action === 'add' && event.origin !== 'api') {
+      const gate = event.after.gates.find((g) => g.id === event.gateId);
+      if (gate?.type === 'H' && gate.qubit === 0) goToNextStep();
+    }
+  }}
+>
+  <QamposerMicro />
+</QamposerProvider>`;
+
+  const editingInputs = ["mouse", "touch", "keyboard"];
+
   const adapters = [
     { key: "local", name: "localAdapter()" },
     { key: "qiskit", name: "qiskitAdapter(url)" },
@@ -157,6 +221,73 @@ function App() {
                 <li key={index}>{note}</li>
               ))}
             </ul>
+            <p className="section-description">
+              {t("localSimulation.realtimeShots")}
+            </p>
+            <CodeSnippet type="multi" feedback="Copied!">
+              {realtimeShotsCode}
+            </CodeSnippet>
+          </section>
+
+          {/* Editing Gates */}
+          <section className="section">
+            <h2 className="section-title">{t("editing.title")}</h2>
+            <p className="section-description">{t("editing.description")}</p>
+            <div className="table-container">
+              <Table size="lg" useZebraStyles={false}>
+                <TableHead>
+                  <TableRow>
+                    <TableHeader>{t("editing.columns.input")}</TableHeader>
+                    <TableHeader>{t("editing.columns.place")}</TableHeader>
+                    <TableHeader>{t("editing.columns.move")}</TableHeader>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {editingInputs.map((key) => (
+                    <TableRow key={key}>
+                      <TableCell>{t(`editing.${key}.name`)}</TableCell>
+                      <TableCell>{t(`editing.${key}.place`)}</TableCell>
+                      <TableCell>{t(`editing.${key}.move`)}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+            <p className="section-description" style={{ marginTop: "1rem" }}>
+              {t("editing.undo")}
+            </p>
+            <CodeSnippet type="multi" feedback="Copied!">
+              {gateApiCode}
+            </CodeSnippet>
+          </section>
+
+          {/* Controlling from Your App */}
+          <section className="section">
+            <h2 className="section-title">{t("provider.title")}</h2>
+            <p className="section-description">{t("provider.description")}</p>
+            <CodeSnippet type="multi" feedback="Copied!">
+              {providerCode}
+            </CodeSnippet>
+            <h3 className="subsection-title">{t("provider.notesTitle")}</h3>
+            <ul className="doc-list">
+              {tArray("provider.notes").map((note, index) => (
+                <li key={index}>{note}</li>
+              ))}
+            </ul>
+          </section>
+
+          {/* Events */}
+          <section className="section">
+            <h2 className="section-title">{t("events.title")}</h2>
+            <p className="section-description">{t("events.description")}</p>
+            <CodeSnippet type="multi" feedback="Copied!">
+              {eventsCode}
+            </CodeSnippet>
+            <ul className="doc-list">
+              {tArray("events.notes").map((note, index) => (
+                <li key={index}>{note}</li>
+              ))}
+            </ul>
           </section>
 
           {/* Backend Setup */}
@@ -209,6 +340,17 @@ function App() {
                 {noopAdapterCode}
               </CodeSnippet>
             </Tile>
+          </section>
+
+          {/* Migrating from 0.2.x */}
+          <section className="section">
+            <h2 className="section-title">{t("migration.title")}</h2>
+            <p className="section-description">{t("migration.description")}</p>
+            <ul className="doc-list">
+              {tArray("migration.items").map((item, index) => (
+                <li key={index}>{item}</li>
+              ))}
+            </ul>
           </section>
 
           {/* Next Steps */}

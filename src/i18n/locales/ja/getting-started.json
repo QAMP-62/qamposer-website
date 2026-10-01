@@ -23,6 +23,53 @@
       "対応するのは理想（ノイズなし）プロファイルのみです。ノイズありの疑似デバイスや実機にはバックエンドアダプターが必要です。",
       "maxQubits（デフォルト: 12）を超える量子ビット数の回路は拒否されます。",
       "Q-sphereの点は5量子ビット以下の回路で出力されます。"
+    ],
+    "realtimeShots": "v0.3.0から、自動シミュレーションのショット数を config.realtimeShots で変更できます（デフォルト: 1024、maxShotsが上限）："
+  },
+  "editing": {
+    "title": "ゲートの編集",
+    "description": "v0.3.0から、マウス・タッチ・キーボードでゲートを配置・移動できます。ゲートは常に左詰めで配置されるため、ゲートを移動すると同じ量子ビット上で順序が入れ替わるか、別の量子ビットへ移動します。",
+    "columns": {
+      "input": "入力",
+      "place": "ゲートの配置",
+      "move": "配置済みゲートの移動"
+    },
+    "mouse": {
+      "name": "マウス",
+      "place": "パレットからドラッグ",
+      "move": "ゲートをドラッグ"
+    },
+    "touch": {
+      "name": "タッチ",
+      "place": "パレットのゲートを長押ししてからドラッグ",
+      "move": "ゲートを長押ししてからドラッグ（素早くスワイプするとスクロール）"
+    },
+    "keyboard": {
+      "name": "キーボード",
+      "place": "1〜7（H, X, Y, Z, RX, RY, CNOT）または Q / E で切り替え（RZを含む）、Spaceで配置",
+      "move": "ゲート上でSpace、矢印キー / WASDで移動、Spaceでドロップ"
+    },
+    "undo": "回路の外でドロップするかEscキーでドラッグをキャンセルできます。すべての編集（ポインター、キーボード、コードエディタ、API）は1つの取り消し履歴にまとめられ、エディタ上では Ctrl/Cmd+Z と Ctrl/Cmd+Y、またはuseQamposer()の undo() / redo() で操作できます。同じ操作はプログラムからも実行できます："
+  },
+  "provider": {
+    "title": "アプリからQamposerを操作する",
+    "description": "プリセット（Qamposer または QamposerMicro）を独自の QamposerProvider で囲むと、その内側のどこからでも useQamposer() を呼び出せます。プリセットは自前のProviderを作らず外側のProviderを使うため、アプリのコンポーネントと状態・操作を共有できます。",
+    "notesTitle": "知っておきたいこと",
+    "notes": [
+      "状態: circuit、result、resultSource、status、error、qasmCode、canUndo / canRedo、adapterStatus など。",
+      "操作: setCircuit、insertGate、moveGate、removeGate、updateGate、importQasm、exportQasm、clearCircuit、undo / redo、simulate など。操作は互いの変更を参照するため、importQasm() の直後に simulate() を呼ぶとインポートした回路が測定されます。",
+      "プリセットが QamposerProvider の内側にある場合、Providerのprops（adapter、circuit、onSimulationComplete など）はProviderに渡してください。プリセット側に渡した同じpropsはコンソール警告とともに無視されます。外側の ThemeProvider も同様に再利用されます。",
+      "adapterStatus は 'checking'、'available'、'unavailable' のいずれかです。simulate() はいつ呼んでも安全で、最初の接続確認を待ち、利用不可のアダプターは再確認するため、ページ読み込み後に起動したバックエンドもリロードなしで利用できます。"
+    ]
+  },
+  "events": {
+    "title": "シミュレーション・編集イベント",
+    "description": "v0.3.0から、Providerがシミュレーションのライフサイクル全体と回路の編集ごとにイベントを通知します：",
+    "notes": [
+      "すべてのシミュレーションイベントは circuit、qasm、source を持ちます。source は編集ごとの自動シミュレーションなら 'realtime'、明示的な simulate() 呼び出し（「Set up and run」など）なら 'run' です。",
+      "onResultChange は表示中の結果が変わるたびに呼ばれ、結果がクリアされた場合（reason: 'simulation' | 'empty-circuit' | 'clear' | 'remove-qubit'）も通知されます。これは onSimulationComplete では通知されません。",
+      "onCircuitEdit は編集1回につき1回呼ばれます。ユーザーが操作したゲートは gateId、その副作用で押し出されたゲートは displaced に入ります。また、すべてのイベントに changes: { added, removed, updated } が含まれ、状態の同期・採点・ログに使えます。",
+      "コールバックやアダプターはインラインで渡せます。ただし、インラインのアダプターは親の再レンダリングごとに isAvailable() を再確認するため、ネットワークアダプターはコンポーネント外（または useMemo）で一度だけ作成するのがおすすめです。"
     ]
   },
   "backend": {
@@ -55,6 +102,19 @@
       "title": "エディタのみモード",
       "description": "シミュレーションなしで回路エディタのみが必要な場合は、noopAdapterを使用してください。アダプターを指定しない場合のデフォルトでもあります："
     }
+  },
+  "migration": {
+    "title": "0.2.xからの移行",
+    "description": "v0.3.0はほぼ後方互換です。アップグレード時は以下を確認してください：",
+    "items": [
+      "ゲートのドラッグにHTML5 Drag and Drop APIを使わなくなりました（タッチデバイスで動作しないため）。dataTransfer経由でエディタにゲートをドロップしていたコードは insertGate を使ってください。",
+      "removeGate() は、エディタ上での削除と同様に残りのゲートを左詰めするようになりました。",
+      "addGate() は新しいゲートのID（maxGatesに達している場合は null）を返すようになりました。",
+      "editingGate はIDで追跡されるようになり、回路の変更（取り消し、コード編集）に追従し、ゲートが削除されると null になります。",
+      "simulate() はマウント直後に失敗せず接続確認を待つようになりました。また、アダプターが利用不可の場合はrejectに加えて error / onSimulationError でも通知されます。",
+      "SimulationCompleteEvent に必須の source フィールドが追加されました。このイベントを自前で生成するコード（テストなど）では指定が必要です。",
+      "独自の ThemeProvider の内側にあるプリセットは、自前で作らずそのProviderを使うようになりました。"
+    ]
   },
   "nextSteps": {
     "title": "次のステップ",

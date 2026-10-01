@@ -18,8 +18,8 @@ importers:
         specifier: ^1.99.0
         version: 1.99.0(sass@1.97.3)
       '@qamposer/react':
-        specifier: ^0.2.1
-        version: 0.2.1(plotly.js-basic-dist-min@3.3.1)(react-dom@19.2.4(react@19.2.4))(react-plotly.js@2.6.0(plotly.js@3.3.1(mapbox-gl@1.13.3))(react@19.2.4))(react@19.2.4)
+        specifier: ^0.3.0
+        version: 0.3.0(plotly.js-basic-dist-min@3.3.1)(react-dom@19.2.4(react@19.2.4))(react-plotly.js@2.6.0(plotly.js@3.3.1(mapbox-gl@1.13.3))(react@19.2.4))(react@19.2.4)
       plotly.js-basic-dist-min:
         specifier: ^3.3.1
         version: 3.3.1
@@ -641,6 +641,7 @@ packages:
   '@plotly/mapbox-gl@1.13.4':
     resolution: {integrity: sha512-sR3/Pe5LqT/fhYgp4rT4aSFf1rTsxMbGiH6Hojc7PH36ny5Bn17iVFUjpzycafETURuFbLZUfjODO8LvSI+5zQ==}
     engines: {node: '>=6.4.0'}
+    deprecated: This package is deprecated as of August 2026. plotly.js v4 uses MapLibre for map traces — see https://github.com/maplibre/maplibre-gl-js.
 
   '@plotly/point-cluster@3.1.9':
     resolution: {integrity: sha512-MwaI6g9scKf68Orpr1pHZ597pYx9uP8UEFXLPbsCmuw3a84obwz6pnMXGc90VhgDNeNiLEdlmuK7CPo+5PIxXw==}
@@ -648,8 +649,8 @@ packages:
   '@plotly/regl@2.1.2':
     resolution: {integrity: sha512-Mdk+vUACbQvjd0m/1JJjOOafmkp/EpmHjISsopEz5Av44CBq7rPC05HHNbYGKVyNUF2zmEoBS/TT0pd0SPFFyw==}
 
-  '@qamposer/react@0.2.1':
-    resolution: {integrity: sha512-zQ8V6ookFdJmZH2a4I9A6a4ZpC05WbWB/ZbnlXBwHeNoqFVZT2DsZLApPSfFMQNHGcXOo81Wsr5zBe22lesO6w==}
+  '@qamposer/react@0.3.0':
+    resolution: {integrity: sha512-W7a1bVLKPVSJg8AEkarAxblniADI12xdxCzRkfMR+ssHeRV/RF9E2+lTPSC3bm8RiqwXimPEHDe8hU4CyNtisA==}
     peerDependencies:
       plotly.js-basic-dist-min: ^2.35.0 || ^3.0.0
       react: ^18.0.0 || ^19.0.0
@@ -2894,7 +2895,7 @@ snapshots:
 
   '@plotly/regl@2.1.2': {}
 
-  '@qamposer/react@0.2.1(plotly.js-basic-dist-min@3.3.1)(react-dom@19.2.4(react@19.2.4))(react-plotly.js@2.6.0(plotly.js@3.3.1(mapbox-gl@1.13.3))(react@19.2.4))(react@19.2.4)':
+  '@qamposer/react@0.3.0(plotly.js-basic-dist-min@3.3.1)(react-dom@19.2.4(react@19.2.4))(react-plotly.js@2.6.0(plotly.js@3.3.1(mapbox-gl@1.13.3))(react@19.2.4))(react@19.2.4)':
     dependencies:
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)

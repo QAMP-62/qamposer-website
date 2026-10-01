@@ -23,6 +23,53 @@
       "Ideal (noiseless) profiles only — noisy fake devices and real hardware still need a backend adapter.",
       "Circuits wider than maxQubits (default: 12) are rejected.",
       "Q-sphere points are emitted for circuits of 5 qubits or fewer."
+    ],
+    "realtimeShots": "Since v0.3.0, the number of shots used for the auto-simulation can be changed with config.realtimeShots (default: 1024, capped at maxShots):"
+  },
+  "editing": {
+    "title": "Editing Gates",
+    "description": "Since v0.3.0, gates can be placed and moved with the mouse, touch, or keyboard. Gates are always left-aligned, so moving a gate reorders it on its qubit or moves it to another qubit.",
+    "columns": {
+      "input": "Input",
+      "place": "Place a gate",
+      "move": "Move a placed gate"
+    },
+    "mouse": {
+      "name": "Mouse",
+      "place": "Drag from the palette",
+      "move": "Drag the gate"
+    },
+    "touch": {
+      "name": "Touch",
+      "place": "Long-press a palette gate, then drag",
+      "move": "Long-press the gate, then drag (a quick swipe scrolls)"
+    },
+    "keyboard": {
+      "name": "Keyboard",
+      "place": "1-7 (H, X, Y, Z, RX, RY, CNOT) or Q / E to cycle (includes RZ), Space to place",
+      "move": "Space on a gate, arrow keys / WASD, Space to drop"
+    },
+    "undo": "Drop outside the circuit or press Esc to cancel a drag. Every edit (pointer, keyboard, code editor, or API) goes into one undo history: Ctrl/Cmd+Z and Ctrl/Cmd+Y in the editor, or undo() / redo() from useQamposer(). The same operations are available programmatically:"
+  },
+  "provider": {
+    "title": "Controlling Qamposer from Your App",
+    "description": "Wrap a preset (Qamposer or QamposerMicro) in your own QamposerProvider and call useQamposer() anywhere inside it. The preset uses the outer provider instead of creating its own, so your components share its state and actions.",
+    "notesTitle": "Good to know",
+    "notes": [
+      "State: circuit, result, resultSource, status, error, qasmCode, canUndo / canRedo, adapterStatus, and more.",
+      "Actions: setCircuit, insertGate, moveGate, removeGate, updateGate, importQasm, exportQasm, clearCircuit, undo / redo, simulate, and more. Actions see each other's changes, so simulate() right after importQasm() measures the imported circuit.",
+      "When a preset is inside a QamposerProvider, pass provider props (adapter, circuit, onSimulationComplete, ...) to the provider; the same props on the preset are ignored with a console warning. An outer ThemeProvider is reused in the same way.",
+      "adapterStatus is 'checking', 'available', or 'unavailable'. simulate() is safe to call at any time: it waits for the first availability check, and re-checks an unavailable adapter so a backend started after page load is picked up without a reload."
+    ]
+  },
+  "events": {
+    "title": "Simulation & Edit Events",
+    "description": "Since v0.3.0, the provider reports the whole simulation lifecycle and every circuit edit:",
+    "notes": [
+      "Every simulation event carries circuit, qasm, and source: 'realtime' for the automatic simulation on each edit, 'run' for an explicit simulate() call (e.g. \"Set up and run\").",
+      "onResultChange fires whenever the displayed result changes, including when it is cleared (reason: 'simulation' | 'empty-circuit' | 'clear' | 'remove-qubit'), which onSimulationComplete never reports.",
+      "onCircuitEdit is called once per edit. The gate the user acted on is gateId; gates pushed aside as a side effect are listed in displaced. Every event also includes changes: { added, removed, updated } for syncing, scoring, or logging.",
+      "Callbacks and adapters can be passed inline. Network adapters are still best created once outside the component (or with useMemo), since an inline adapter re-checks isAvailable() on every parent render."
     ]
   },
   "backend": {
@@ -55,6 +102,19 @@
       "title": "Editor-Only Mode",
       "description": "If you only need the circuit editor without simulation, use the noopAdapter. It is also the default when no adapter is given:"
     }
+  },
+  "migration": {
+    "title": "Migrating from 0.2.x",
+    "description": "v0.3.0 is mostly backward compatible. Check the following if you upgrade:",
+    "items": [
+      "Gates are no longer dragged with the HTML5 Drag and Drop API (it does not work on touch devices). Code that dropped gates into the editor via dataTransfer should call insertGate instead.",
+      "removeGate() now left-compacts the remaining gates, like deleting from the editor.",
+      "addGate() now returns the new gate's id (or null at maxGates).",
+      "editingGate is tracked by id: it follows the circuit (undo, code edits) and becomes null when the gate is removed.",
+      "simulate() waits for the availability check instead of failing right after mount, and reports an unavailable adapter through error / onSimulationError as well as by rejecting.",
+      "SimulationCompleteEvent has a required source field. Code that constructs these events itself (e.g. in tests) must set it.",
+      "A preset inside your own ThemeProvider now uses it instead of creating its own."
+    ]
   },
   "nextSteps": {
     "title": "Next Steps",
